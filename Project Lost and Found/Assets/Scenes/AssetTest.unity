@@ -1118,6 +1118,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bathroom_Toiletpaper
       objectReference: {fileID: 0}
+    - target: {fileID: 1634034882777493830, guid: aacf66377d2089649b1cbc2076d087dd, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fd032ae6ded285c47a67f87ce455a3a6, type: 2}
     - target: {fileID: 2261375949692601805, guid: aacf66377d2089649b1cbc2076d087dd, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.67
