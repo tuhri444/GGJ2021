@@ -12,24 +12,18 @@ public class GetGrabbed : MonoBehaviour
     {
         self_mat = GetComponent<MeshRenderer>().material;
         normal_color = self_mat.color;
-        GrabHand.OnGrab += OnGrab;
-        GrabHand.OnLetGo += OnLetGo;
     }
 
-    void OnGrab(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        self_mat.color = selected_color;
+        if (other.gameObject.layer == 8)
+            self_mat.color = selected_color;
     }
 
-    void OnLetGo(Collider other)
+    private void OnTriggerExit(Collider other)
     {
-        self_mat.color = normal_color;
-    }
-
-    private void OnDestroy()
-    {
-        GrabHand.OnGrab -= OnGrab;
-        GrabHand.OnLetGo -= OnLetGo;
+        if (other.gameObject.layer == 8)
+            self_mat.color = normal_color;
     }
 
 }

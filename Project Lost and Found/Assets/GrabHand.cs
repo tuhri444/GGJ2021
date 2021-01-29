@@ -12,13 +12,12 @@ public class GrabHand : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.layer == 8)
+        if (other.gameObject.GetComponent<GetGrabbed>() != null)
             OnGrab?.Invoke(other);
     }
-
     private void OnTriggerExit(Collider other)
     {
-        if(other.gameObject.layer == 8)
+        if (other.gameObject.GetComponent<GetGrabbed>() != null)
             OnLetGo?.Invoke(other);
     }
 
