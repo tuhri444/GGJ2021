@@ -7,7 +7,7 @@ public class Jump : MonoBehaviour
     Rigidbody rigidbody;
     public float jumpStrength = 2;
     public event System.Action Jumped;
-
+    private bool canMove = true;
 
     void Reset()
     {
@@ -19,14 +19,32 @@ public class Jump : MonoBehaviour
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
+        GrabHand.OnGrab += OnGrab;
+        GrabHand.OnLetGo += OnLetGo;
     }
 
     void LateUpdate()
     {
-        if (Input.GetButtonDown("Jump") && groundCheck.isGrounded)
+        if (Input.GetButtonDown("Jump") && groundCheck.isGrounded && canMove)
         {
             rigidbody.AddForce(Vector3.up * 100 * jumpStrength);
             Jumped?.Invoke();
         }
+    }
+
+    void OnGrab(Collider other)
+    {
+        canMove = false;
+    }
+
+    void OnLetGo(Collider other)
+    {
+        canMove = true;
+    }
+
+    private void OnDestroy()
+    {
+        GrabHand.OnGrab -= OnGrab;
+        GrabHand.OnLetGo -= OnLetGo;
     }
 }
