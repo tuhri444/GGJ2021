@@ -19,6 +19,8 @@ public class Crouch : MonoBehaviour
     public bool IsCrouched { get; private set; }
     public event System.Action CrouchStart, CrouchEnd;
 
+    private bool canMove = true;
+
 
     void Reset()
     {
@@ -37,11 +39,13 @@ public class Crouch : MonoBehaviour
         defaultHeadYLocalPosition = head.localPosition.y;
         if (capsuleCollider)
             defaultCapsuleColliderHeight = capsuleCollider.height;
+        GrabHand.OnGrab += OnGrab;
+        GrabHand.OnLetGo += OnLetGo;
     }
 
     void LateUpdate()
     {
-        if (IsKeyPressed(keys))
+        if (IsKeyPressed(keys) && canMove)
         {
             // Enforce crouched y local position of the head.
             head.localPosition = new Vector3(head.localPosition.x, crouchYLocalPosition, head.localPosition.z);
@@ -86,5 +90,21 @@ public class Crouch : MonoBehaviour
             if (Input.GetKey(keys[i]))
                 return true;
         return false;
+    }
+
+    void OnGrab(Collider other)
+    {
+        canMove = false;
+    }
+
+    void OnLetGo(Collider other)
+    {
+        canMove = true;
+    }
+
+    private void OnDestroy()
+    {
+        GrabHand.OnGrab -= OnGrab;
+        GrabHand.OnLetGo -= OnLetGo;
     }
 }
