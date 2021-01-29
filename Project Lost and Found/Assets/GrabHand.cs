@@ -2,49 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(SphereCollider))]
 public class GrabHand : MonoBehaviour
 {
-    public delegate void Grab();
+    public delegate void Grab(Collider other);
     public static Grab OnGrab;
+    public delegate void LetGo(Collider other);
+    public static LetGo OnLetGo;
 
-    private bool grabbing = false;
-
-    private Animator grabbing_animation;
-
-    void Start()
+    private void OnTriggerStay(Collider other)
     {
-        grabbing_animation = GetComponent<Animator>();
+        if (other.gameObject.layer == 8)
+            OnGrab?.Invoke(other);
     }
 
-    void Update()
+    private void OnTriggerExit(Collider other)
     {
-        HandleMouseInput();
-        HandleGrabAnimation();
-        OnGrab?.Invoke();
+        if(other.gameObject.layer == 8)
+            OnLetGo?.Invoke(other);
     }
 
-    private void HandleGrabAnimation()
-    {
-        if(grabbing && !grabbing_animation.IsInTransition(0) && grabbing_animation.GetCurrentAnimatorClipInfo(0)[0].clip.name == "rest")
-        {
-            grabbing_animation.SetTrigger("Grab");
-        }
-        else if(!grabbing && grabbing_animation.GetCurrentAnimatorClipInfo(0)[0].clip.name == "grab")
-        {
-            grabbing_animation.SetTrigger("Pullback");
-        }
-    }
-
-    private void HandleMouseInput()
-    {
-        if(Input.GetMouseButtonDown(0))
-        {
-            grabbing = true;
-        }
-        if(Input.GetMouseButtonUp(0))
-        {
-            grabbing = false;
-        }
-    }
 }

@@ -9,6 +9,7 @@ public class FirstPersonLook : MonoBehaviour
     public float sensitivity = 1;
     public float smoothing = 2;
 
+    private bool canMove = true;
 
     void Reset()
     {
@@ -19,18 +20,38 @@ public class FirstPersonLook : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        GrabHand.OnGrab += OnGrab;
+        GrabHand.OnLetGo += OnLetGo;
     }
 
     void Update()
     {
-        // Get smooth mouse look.
-        Vector2 smoothMouseDelta = Vector2.Scale(new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")), Vector2.one * sensitivity * smoothing);
-        appliedMouseDelta = Vector2.Lerp(appliedMouseDelta, smoothMouseDelta, 1 / smoothing);
-        currentMouseLook += appliedMouseDelta;
-        currentMouseLook.y = Mathf.Clamp(currentMouseLook.y, -90, 90);
+        if (canMove)
+        {
+            // Get smooth mouse look.
+            Vector2 smoothMouseDelta = Vector2.Scale(new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")), Vector2.one * sensitivity * smoothing);
+            appliedMouseDelta = Vector2.Lerp(appliedMouseDelta, smoothMouseDelta, 1 / smoothing);
+            currentMouseLook += appliedMouseDelta;
+            currentMouseLook.y = Mathf.Clamp(currentMouseLook.y, -90, 90);
 
-        // Rotate camera and controller.
-        transform.localRotation = Quaternion.AngleAxis(-currentMouseLook.y, Vector3.right);
-        character.localRotation = Quaternion.AngleAxis(currentMouseLook.x, Vector3.up);
+            // Rotate camera and controller.
+            transform.localRotation = Quaternion.AngleAxis(-currentMouseLook.y, Vector3.right);
+            character.localRotation = Quaternion.AngleAxis(currentMouseLook.x, Vector3.up);
+        }
+    }
+    void OnGrab(Collider other)
+    {
+        canMove = false;
+    }
+
+    void OnLetGo(Collider other)
+    {
+        canMove = true;
+    }
+
+    private void OnDestroy()
+    {
+        GrabHand.OnGrab -= OnGrab;
+        GrabHand.OnLetGo -= OnLetGo;
     }
 }
