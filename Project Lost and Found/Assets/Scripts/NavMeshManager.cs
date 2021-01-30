@@ -23,15 +23,9 @@ public class NavMeshManager : MonoBehaviour
         {
             GameObject go = Instantiate(NPCPref);
             Vector3 pos = new Vector3(transform.position.x,0,transform.position.z);
-            go.transform.position = NavMeshUtil.GetRandomPoint(transform.position, 10,-1);
+            go.transform.position = NavMeshUtil.GetRandomPoint(transform.position, 2,-1);
             NPCS.Add(go);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public bool ValidatePosition(int index,Vector3 position)
