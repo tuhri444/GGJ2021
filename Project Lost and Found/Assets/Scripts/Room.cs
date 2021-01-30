@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Room : MonoBehaviour
 {
     ProceduralRoomGenerator procRoomGen;
@@ -12,7 +13,13 @@ public class Room : MonoBehaviour
 
     private bool northAdjacentRoom = false;
     private bool southAdjacentRoom = false;
+    private bool eastAdjacentRoom = false;
+    private bool westAdjacentRoom = false;
 
+    private void Start()
+    {
+        Init();
+    }
     public void Init()
     {
         doors = new List<RoomTrigger>();
@@ -20,11 +27,15 @@ public class Room : MonoBehaviour
 
         doors.Add(transform.Find("NorthTrigger").GetComponent<RoomTrigger>());
         doors.Add(transform.Find("SouthTrigger").GetComponent<RoomTrigger>());
+        doors.Add(transform.Find("EastTrigger").GetComponent<RoomTrigger>());
+        doors.Add(transform.Find("WestTrigger").GetComponent<RoomTrigger>());
 
         doors.ForEach(x => x.Init());
         northAdjacentRoom = doors[0].HasAdjacentRoom;
         southAdjacentRoom = doors[1].HasAdjacentRoom;
-        CheckAdjacency();
+        eastAdjacentRoom = doors[2].HasAdjacentRoom;
+        westAdjacentRoom = doors[3].HasAdjacentRoom;
+        //CheckAdjacency();
     }
 
     public bool CheckAdjacency()
@@ -42,6 +53,7 @@ public class Room : MonoBehaviour
         Debug.Log("Door Count" + doors.Count);
         if (count < doors.Count)
         {
+            
             return true;
         }
         return false;
@@ -63,6 +75,18 @@ public class Room : MonoBehaviour
     {
         get { return southAdjacentRoom; }
         set { southAdjacentRoom = value; }
+    }
+
+    public bool EastAdjacent
+    {
+        get { return eastAdjacentRoom; }
+        set { eastAdjacentRoom = value; }
+    }
+
+    public bool WestAdjacent
+    {
+        get { return westAdjacentRoom; }
+        set { westAdjacentRoom = value; }
     }
 
 }

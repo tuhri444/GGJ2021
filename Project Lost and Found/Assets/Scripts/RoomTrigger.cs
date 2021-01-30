@@ -5,50 +5,59 @@ using UnityEngine;
 public class RoomTrigger : MonoBehaviour
 {
     private Room room;
-
+    [SerializeField]
+    private int id = -1;
     [SerializeField]
     private bool hasAdjacentRoom = false;
     // Start is called before the first frame update
     public void Init()
     {
         room = transform.parent.GetComponent<Room>();
-        if (name.Equals("SouthTrigger"))
-        {
-            hasAdjacentRoom = adjacentCheck();
-            
-            Debug.Log("AdjacentCheckName:" + name);
-            Debug.Log("Checked: "+hasAdjacentRoom);
-        }
-        else if (name.Equals("NorthTrigger"))
-        {
-            hasAdjacentRoom = adjacentCheck();
-            Debug.Log("AdjacentCheckName:" + name);
-            Debug.Log("Checked: " + hasAdjacentRoom);
-        }
+        hasAdjacentRoom = adjacentCheck();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (name.Equals("SouthTrigger"))
         {
-            Debug.DrawRay(transform.position, transform.forward,Color.red);
+            Debug.DrawRay(transform.position, transform.forward, Color.red);
         }
         else if (name.Equals("NorthTrigger"))
         {
-            Debug.DrawRay(transform.position, transform.forward,Color.green);
+            Debug.DrawRay(transform.position, transform.forward, Color.green);
+        }
+        else if (name.Equals("EastTrigger"))
+        {
+            Debug.DrawRay(transform.position, transform.right, Color.blue);
+        }
+        else if (name.Equals("WestTrigger"))
+        {
+            Debug.DrawRay(transform.position, transform.right, Color.white);
         }
 
     }
 
     public bool adjacentCheck()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 10))
+        if (id == 0)
         {
-            Debug.Log("Name: " + name);
-            Debug.Log("Hit Something");
-            return true;
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.forward, out hit, 10))
+            {
+                Debug.Log("Name: " + name);
+                Debug.Log("Hit Something");
+                return true;
+            }
+        }
+        else
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.right, out hit, 10))
+            {
+                Debug.Log("Name: " + name);
+                Debug.Log("Hit Something");
+                return true;
+            }
         }
         return false;
     }
