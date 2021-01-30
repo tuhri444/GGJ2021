@@ -49,41 +49,50 @@ public class GetGrabbed : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 8)
+        GrabHand gh = other.GetComponent<GrabHand>();
+        if (gh != null && !gh.IsGrabbing)
         {
-            self_mat.color = selected_color;
-            float ranNumb = Random.Range(0.0f,100.01f);
-            if (ranNumb <= chanceOfBeingMom)
+            if (other.gameObject.layer == 8)
             {
-                ds.ClearQueue();
-                DialogueSystem.AddDialogue(IsMomDialogues[0]);
-                DialogueSystem.AddDialogue(IsMomDialogues[1]);
-                ds.triggerAnimation = true;
-                DialogueSystem.NextSentence();
-            }
-            else
-            {
-                ds.ClearQueue();
-                DialogueSystem.AddDialogue(IsNotMomDialogues[0]);
-                DialogueSystem.AddDialogue(IsNotMomDialogues[1]);
-                DialogueSystem.AddDialogue(IsNotMomDialogues[2]);
-                ds.triggerAnimation = true;
-                DialogueSystem.NextSentence();
-                playerStress.AddToStress(10);
-            }
+                self_mat.color = selected_color;
+                float ranNumb = Random.Range(0.0f, 100.01f);
+                if (ranNumb <= chanceOfBeingMom)
+                {
+                    ds.ClearQueue();
+                    DialogueSystem.AddDialogue(IsMomDialogues[0]);
+                    DialogueSystem.AddDialogue(IsMomDialogues[1]);
+                    ds.triggerAnimation = true;
+                    DialogueSystem.NextSentence();
+                }
+                else
+                {
+                    ds.ClearQueue();
+                    DialogueSystem.AddDialogue(IsNotMomDialogues[0]);
+                    DialogueSystem.AddDialogue(IsNotMomDialogues[1]);
+                    DialogueSystem.AddDialogue(IsNotMomDialogues[2]);
+                    ds.triggerAnimation = true;
+                    DialogueSystem.NextSentence();
+                    playerStress.AddToStress(10);
+                }
 
-            if(npc != null)
-                npc.ToggleWalk(true);
+                if (npc != null)
+                    npc.ToggleWalk(true);
+            }
         }
+
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == 8)
+        GrabHand gh = other.GetComponent<GrabHand>();
+        if (gh != null && !gh.IsGrabbing)
         {
-            self_mat.color = normal_color;
-            if (npc != null)
-                npc.ToggleWalk(false);
+            if (other.gameObject.layer == 8)
+            {
+                self_mat.color = normal_color;
+                if (npc != null)
+                    npc.ToggleWalk(false);
+            }
         }
     }
 
