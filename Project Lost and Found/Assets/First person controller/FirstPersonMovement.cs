@@ -2,9 +2,19 @@
 
 public class FirstPersonMovement : MonoBehaviour
 {
-    public float speed = 5;
+    private float speed = 5;
+
+    [SerializeField]
+    private float walkSpeed = 5;
+
+    [SerializeField]
+    private float runSpeed = 10;
+
     Vector2 velocity;
     private bool canMove = true;
+
+
+
     private void Start()
     {
         GrabHand.OnGrab += OnGrab;
@@ -15,6 +25,15 @@ public class FirstPersonMovement : MonoBehaviour
     {
         if (canMove)
         {
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                speed = runSpeed;
+            }
+            else
+            {
+                speed = walkSpeed;
+            }
+
             velocity.y = Input.GetAxis("Vertical") * speed * Time.deltaTime;
             velocity.x = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
             transform.Translate(velocity.x, 0, velocity.y);
