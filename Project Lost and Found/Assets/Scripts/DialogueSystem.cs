@@ -58,10 +58,17 @@ public class DialogueSystem : MonoBehaviour
     {
         if (dialogueQueue != null && currentTime >= animationSpeed)
         {
-            if (dialogueQueue.Count > 0 && startReading && doneReadingCurrent)
+            if(startReading && doneReadingCurrent)
             {
-                startReading = false;
-                StartCoroutine(DisplayCharacter(dialogueQueue.Peek()));
+                if (dialogueQueue.Count > 0)
+                {
+                    startReading = false;
+                    StartCoroutine(DisplayCharacter(dialogueQueue.Peek()));
+                }
+                else
+                {
+                    triggerAnimation = true;
+                }
             }
         }
     }
@@ -101,6 +108,7 @@ public class DialogueSystem : MonoBehaviour
             Debug.Log("currentTime: " + currentTime);
             dialogueTrans.localScale = new Vector3(size,size, 1.0f);
             currentTime += Time.deltaTime;
+            ClearDialogueBox();
         }
         else if(!dialogueActive && currentTime >= 0)
         {
