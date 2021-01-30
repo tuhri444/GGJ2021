@@ -9,37 +9,41 @@ public class RoomTrigger : MonoBehaviour
     [SerializeField]
     private bool hasAdjacentRoom = false;
     // Start is called before the first frame update
-    void Start()
+    public void Init()
     {
         room = transform.parent.GetComponent<Room>();
         if (name.Equals("SouthTrigger"))
         {
-            hasAdjacentRoom = adjacentCheck(); 
+            hasAdjacentRoom = adjacentCheck();
+            
+            Debug.Log("AdjacentCheckName:" + name);
+            Debug.Log("Checked: "+hasAdjacentRoom);
         }
         else if (name.Equals("NorthTrigger"))
         {
             hasAdjacentRoom = adjacentCheck();
+            Debug.Log("AdjacentCheckName:" + name);
+            Debug.Log("Checked: " + hasAdjacentRoom);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawRay(transform.position, transform.forward);
         if (name.Equals("SouthTrigger"))
         {
-            hasAdjacentRoom = room.SouthAdjacent;
+            Debug.DrawRay(transform.position, transform.forward,Color.red);
         }
-        else if(name.Equals("NorthTrigger"))
+        else if (name.Equals("NorthTrigger"))
         {
-            hasAdjacentRoom = room.NorthAdjacent;
+            Debug.DrawRay(transform.position, transform.forward,Color.green);
         }
+
     }
 
     public bool adjacentCheck()
     {
         RaycastHit hit;
-
         if (Physics.Raycast(transform.position, transform.forward, out hit, 10))
         {
             Debug.Log("Name: " + name);

@@ -13,37 +13,33 @@ public class Room : MonoBehaviour
     private bool northAdjacentRoom = false;
     private bool southAdjacentRoom = false;
 
-    // Start is called before the first frame update
-    void Start()
+    public void Init()
     {
         doors = new List<RoomTrigger>();
         procRoomGen = FindObjectOfType<ProceduralRoomGenerator>();
+
         doors.Add(transform.Find("NorthTrigger").GetComponent<RoomTrigger>());
         doors.Add(transform.Find("SouthTrigger").GetComponent<RoomTrigger>());
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public void Init()
-    {
-
+        doors.ForEach(x => x.Init());
+        northAdjacentRoom = doors[0].HasAdjacentRoom;
+        southAdjacentRoom = doors[1].HasAdjacentRoom;
+        CheckAdjacency();
     }
 
     public bool CheckAdjacency()
     {
         int count = 0;
-        for(int i = 0;i<doors.Count;i++)
+        for (int i = 0; i < doors.Count; i++)
         {
-            if(doors[i].HasAdjacentRoom)
+            if (doors[i].HasAdjacentRoom)
             {
                 count++;
             }
         }
 
+        Debug.Log("Count" + count);
+        Debug.Log("Door Count" + doors.Count);
         if (count < doors.Count)
         {
             return true;
