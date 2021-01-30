@@ -7,35 +7,44 @@ using UnityEditor.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class NPC : MonoBehaviour
 {
+    NavMeshManager agentManager;
     NavMeshAgent navAgent;
-
-    private bool stopWalking = false;
 
     private float time = 0.0f;
     private float waitTime = 0.0f;
+    private int id;
     // Start is called before the first frame update
     void Start()
     {
+        agentManager = GameObject.Find("NavMeshManager").GetComponent<NavMeshManager>();
         navAgent = GetComponent<NavMeshAgent>();
         navAgent.autoRepath = true;
-        navAgent.SetDestination(NavMeshUtil.GetRandomPoint(navAgent.transform.position,20));
-        UnityEditor.AI.NavMeshBuilder.BuildNavMesh();
+        navAgent.SetDestination(NavMeshUtil.GetRandomPoint(navAgent.transform.position, 20, -1));
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!navAgent.hasPath && !navAgent.isStopped)
+        if (!navAgent.hasPath && !navAgent.isStopped)
         {
-            if(time >= waitTime)
+            if (agentManager.ValidatePosition(id, transform.position))
             {
-                navAgent.SetDestination(NavMeshUtil.GetRandomPoint(navAgent.transform.position, 20));//just a magic number for now
-                time = 0;
-                waitTime = Random.Range(1,5);
+                if (time >= waitTime)
+                {
+                    navAgent.SetDestination(NavMeshUtil.GetRandomPoint(transform.position, 20, -1));//just a magic number for now
+                    time = 0;
+                    waitTime = Random.Range(1, 5);
+                }
+                else
+                {
+                    time += Time.deltaTime;
+                }
             }
             else
             {
-                time += Time.deltaTime;
+                navAgent.SetDestination(NavMeshUtil.GetRandomPoint(transform.position, 20, -1));//just a magic number for now
+                time = 0;
+                waitTime = Random.Range(1, 5);
             }
         }
     }
@@ -49,5 +58,11 @@ public class NPC : MonoBehaviour
     public void ToggleWalk(bool toggle)
     {
         navAgent.isStopped = toggle;
+    }
+
+    public int ID
+    {
+        get { return id; }
+        set { id = value; }
     }
 }

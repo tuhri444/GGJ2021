@@ -6,16 +6,16 @@ using UnityEngine.AI;
 
 public class NavMeshUtil 
 {
-    public static Vector3 GetRandomPoint(Vector3 center, float maxDistance)
+    public static Vector3 GetRandomPoint(Vector3 origin, float dist, int layermask)
     {
-        // Get Random Point inside Sphere which position is center, radius is maxDistance
-        Vector3 randomPos = Random.insideUnitSphere * maxDistance + center;
+        Vector3 randDirection = Random.insideUnitSphere * dist;
 
-        NavMeshHit hit; // NavMesh Sampling Info Container
+        randDirection += origin;
 
-        // from randomPos find a nearest point on NavMesh surface in range of maxDistance
-        NavMesh.SamplePosition(randomPos, out hit, maxDistance, NavMesh.AllAreas);
+        NavMeshHit navHit;
 
-        return hit.position;
+        NavMesh.SamplePosition(randDirection, out navHit, dist, layermask);
+
+        return navHit.position;
     }
 }
