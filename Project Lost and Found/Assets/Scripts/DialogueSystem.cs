@@ -14,11 +14,13 @@ public class DialogueSystem : MonoBehaviour
     [SerializeField] private GameObject dialogueBox;
     private RectTransform dialogueTrans;
 
+    private GrabAnimationController animController;
+
     [SerializeField] private TextMeshProUGUI dialogueName;
     [SerializeField] private TextMeshProUGUI dialogueText;
 
     [SerializeField] [Range(0.0f, 1.0f)] private float animationSpeed;
-    [SerializeField] private bool triggerAnimation;
+    [SerializeField] public bool triggerAnimation;
     private float currentTime = 0.0f;
     private bool dialogueActive;
 
@@ -28,29 +30,35 @@ public class DialogueSystem : MonoBehaviour
 
     private static bool startReading = false;
     private bool doneReadingCurrent = true;
-    private int index;
+
+    private bool checkForMouseInput = false;
 
     void Start()
     {
         dialogueTrans = dialogueBox.GetComponent<RectTransform>();
         dialogueTrans.localScale = new Vector3(0, 0, 0);
         dialogueBox.SetActive(false);
-
+        GrabHand.OnGrab += OnGrab;
         dialogueQueue = new Queue<Dialogue>();
-
-        Dialogue test = new Dialogue();
-        test.name = "brian";
-        test.dialogue = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tempus felis ut finibus pharetra.";
-        dialogueQueue.Enqueue(test);
-
-        AddDialogue(new Dialogue() { name = "John" + index, dialogue = "Donec tempus felis ut finibus pharetra" + index++ });
-        AddDialogue(new Dialogue() { name = "John" + index, dialogue = "Lorem ipsum dolor sit amet" + index++ });
-        AddDialogue(new Dialogue() { name = "John" + index, dialogue = "consectetur adipiscing elit." + index++ });
+        animController = FindObjectOfType<GrabAnimationController>();
     }
     void Update()
     {
         activationTrigger();
         activationTriggerText();
+        if(checkForMouseInput)
+        {
+            if(Input.GetMouseButtonDown(0))
+            {
+                NextSentence();
+            }
+        }
+        if (dialogueQueue != null&& dialogueQueue.Count == 0 && checkForMouseInput)
+        {
+            NextSentence();
+            checkForMouseInput = false;
+            animController.StopGrabbing();
+        }
         HandleBoxAnimation();
         DisplayText();
     }
@@ -93,6 +101,11 @@ public class DialogueSystem : MonoBehaviour
         dialogueQueue.Dequeue();
         doneReadingCurrent = true;
     }
+
+    public void ClearQueue()
+    {
+        dialogueQueue.Clear();
+    }
     private void ClearDialogueBox()
     {
         dialogueText.text = "";
@@ -127,7 +140,7 @@ public class DialogueSystem : MonoBehaviour
             dialogueBox.SetActive(false);
         }
     }
-    private void activationTrigger()
+    public void activationTrigger()
     {
         if(triggerAnimation)
         {
@@ -157,6 +170,16 @@ public class DialogueSystem : MonoBehaviour
     public static void NextSentence()
     {
         startReading = !startReading;
+    }
+
+    void OnGrab(Collider other)
+    {
+        checkForMouseInput = true;
+    }
+
+    private void OnDestroy()
+    {
+        GrabHand.OnGrab -= OnGrab;
     }
 
 }

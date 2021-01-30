@@ -42,11 +42,15 @@ public class FirstPersonLook : MonoBehaviour
     void OnGrab(Collider other)
     {
         canMove = false;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     void OnLetGo(Collider other)
     {
         canMove = true;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void OnDestroy()

@@ -6,12 +6,14 @@ using UnityEngine;
 public class GrabAnimationController : MonoBehaviour
 {
     private bool grabbing = false;
+    private bool grabbingHand = false; 
 
     private Animator grabbing_animation;
 
     void Start()
     {
         grabbing_animation = GetComponent<Animator>();
+        GrabHand.OnGrab += OnGrab;
     }
 
     void Update()
@@ -38,9 +40,24 @@ public class GrabAnimationController : MonoBehaviour
         {
             grabbing = true;
         }
-        if(Input.GetMouseButtonUp(0))
+        if(!grabbingHand && Input.GetMouseButtonUp(0))
         {
             grabbing = false;
         }
+    }
+    public void StopGrabbing()
+    {
+        grabbingHand = false;
+        grabbing = false;
+    }
+
+    void OnGrab(Collider other)
+    {
+        grabbingHand = true;
+    }
+
+    private void OnDestroy()
+    {
+        GrabHand.OnGrab -= OnGrab;
     }
 }
