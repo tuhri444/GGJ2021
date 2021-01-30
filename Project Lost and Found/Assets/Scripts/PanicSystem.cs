@@ -77,14 +77,14 @@ public class PanicSystem : MonoBehaviour
     {
         if (pp_vignette.intensity.value != vignette_intensity_max && !down)
             pp_vignette.intensity.value = Mathf.Lerp(pp_vignette.intensity.value, vignette_intensity_max, vignette_activation_speed);
-        else if (pp_vignette.intensity.value > 0.0001f)
+        else if (pp_vignette.intensity.value > 0.01f)
             pp_vignette.intensity.value = Mathf.Lerp(pp_vignette.intensity.value, 0.0f, vignette_activation_speed);
     }
     private void HandleBloom(bool down)
     {
         if (pp_bloom.intensity.value != bloom_intensity_max && !down)
             pp_bloom.intensity.value = Mathf.Lerp(pp_bloom.intensity.value, bloom_intensity_max, bloom_activation_speed);
-        else if (pp_bloom.intensity.value > 0.0001f)
+        else if (pp_bloom.intensity.value > 0.01f)
             pp_bloom.intensity.value = Mathf.Lerp(pp_bloom.intensity.value, 0.0f, bloom_activation_speed);
     }
 }
