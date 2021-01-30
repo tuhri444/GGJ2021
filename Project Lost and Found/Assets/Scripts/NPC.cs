@@ -25,26 +25,31 @@ public class NPC : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!navAgent.hasPath && !navAgent.isStopped)
+        if (navAgent.enabled)
         {
-            if (agentManager.ValidatePosition(id, transform.position))
+            if (!navAgent.hasPath && !navAgent.isStopped)
             {
-                if (time >= waitTime)
+                if (agentManager.ValidatePosition(id, transform.position))
                 {
-                    navAgent.SetDestination(NavMeshUtil.GetRandomPoint(transform.position, 20, -1));//just a magic number for now
-                    time = 0;
-                    waitTime = Random.Range(1, 5);
+                    if (time >= waitTime)
+                    {
+                        navAgent.SetDestination(NavMeshUtil.GetRandomPoint(transform.position, 20, -1));//just a magic number for now
+                        time = 0;
+                        waitTime = Random.Range(1, 5);
+                    }
+                    else
+                    {
+                        time += Time.deltaTime;
+                    }
                 }
                 else
                 {
-                    time += Time.deltaTime;
+
+                    navAgent.SetDestination(NavMeshUtil.GetRandomPoint(transform.position, 20, -1));//just a magic number for now
+                    time = 0;
+                    waitTime = Random.Range(1, 5);
+
                 }
-            }
-            else
-            {
-                navAgent.SetDestination(NavMeshUtil.GetRandomPoint(transform.position, 20, -1));//just a magic number for now
-                time = 0;
-                waitTime = Random.Range(1, 5);
             }
         }
     }
@@ -54,10 +59,12 @@ public class NPC : MonoBehaviour
     {
         navAgent.isStopped = !navAgent.isStopped;
     }
-
     public void ToggleWalk(bool toggle)
     {
-        navAgent.isStopped = toggle;
+        if (toggle)
+            navAgent.enabled = false;
+        else
+            navAgent.enabled = true;
     }
 
     public int ID
