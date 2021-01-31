@@ -27,8 +27,10 @@ public class NPC : MonoBehaviour
     {
         if (navAgent.enabled)
         {
+            transform.GetChild(0).GetComponent<Animator>().SetBool("Idle", false);
             if (!navAgent.hasPath && !navAgent.isStopped)
             {
+
                 if (agentManager.ValidatePosition(id, transform.position))
                 {
                     if (time >= waitTime)
@@ -50,6 +52,10 @@ public class NPC : MonoBehaviour
                     waitTime = Random.Range(1, 5);
 
                 }
+            }
+            else
+            {
+                transform.GetChild(0).GetComponent<Animator>().SetBool("Idle",true);
             }
         }
     }
