@@ -4,17 +4,33 @@ using UnityEngine;
 
 public class NPCClothing : MonoBehaviour
 {
+    [SerializeField]
+    private List<Material> hairMaterials;
+
+    [SerializeField]
+    private List<Material> topMaterials;
+
+    [SerializeField]
+    private List<Material> bottomMaterials;
+
+    [SerializeField]
+    private List<Material> skinMaterials;
+
+
     private List<Transform> fBottoms;
     private List<Transform> mBottoms;
-    private List<Transform> tops;
+    private List<Transform> fTops;
+    private List<Transform> mTops;
     private List<Transform> hairs;
     private List<Transform> genders;
+
     // Start is called before the first frame update
     void Start()
     {
         fBottoms = new List<Transform>();
         mBottoms = new List<Transform>();
-        tops = new List<Transform>();
+        fTops = new List<Transform>();
+        mTops = new List<Transform>();
         hairs = new List<Transform>();
         genders = new List<Transform>();
 
@@ -37,8 +53,18 @@ public class NPCClothing : MonoBehaviour
             }
             if (ContainsName("Top", transform.GetChild(i)))
             {
-                tops.Add(transform.GetChild(i));
-                transform.GetChild(i).gameObject.SetActive(false);
+                if (ContainsName("Male", transform.GetChild(i)))
+                {
+                    mTops.Add(transform.GetChild(i));
+                    transform.GetChild(i).gameObject.SetActive(false);
+                    continue;
+                }
+                else if (ContainsName("Female", transform.GetChild(i)))
+                {
+                    fTops.Add(transform.GetChild(i));
+                    transform.GetChild(i).gameObject.SetActive(false);
+                    continue;
+                }
                 continue;
             }
             if (ContainsName("Hair", transform.GetChild(i)))
@@ -59,20 +85,39 @@ public class NPCClothing : MonoBehaviour
         int gender = Random.Range(0, genders.Count);
         int mBot = Random.Range(0, mBottoms.Count);
         int fBot = Random.Range(0, fBottoms.Count);
-        int top = Random.Range(0, tops.Count);
+        int fTop = Random.Range(0, fTops.Count);
+        int mTop = Random.Range(0, mTops.Count);
         int hair = Random.Range(0, hairs.Count);
+        int mat;
 
+        mat = Random.Range(0, skinMaterials.Count);
         genders[gender].gameObject.SetActive(true);
+        genders[gender].GetComponent<SkinnedMeshRenderer>().material = skinMaterials[mat];
         if (gender == 1)
         {
+            mat = Random.Range(0, bottomMaterials.Count);
             mBottoms[mBot].gameObject.SetActive(true);
+            mBottoms[mBot].GetComponent<SkinnedMeshRenderer>().material = bottomMaterials[mat];
+
+            mat = Random.Range(0, topMaterials.Count);
+            mTops[mTop].gameObject.SetActive(true);
+            mTops[mTop].GetComponent<SkinnedMeshRenderer>().material = topMaterials[mat];
         }
         else
         {
+            mat = Random.Range(0, bottomMaterials.Count);
             fBottoms[fBot].gameObject.SetActive(true);
+            fBottoms[fBot].GetComponent<SkinnedMeshRenderer>().material = bottomMaterials[mat];
+
+            mat = Random.Range(0, topMaterials.Count);
+            fTops[fTop].gameObject.SetActive(true);
+            fTops[fTop].GetComponent<SkinnedMeshRenderer>().material = topMaterials[mat];
         }
-        tops[top].gameObject.SetActive(true);
+
+
+        mat = Random.Range(0, hairMaterials.Count);
         hairs[hair].gameObject.SetActive(true);
+        hairs[hair].GetComponent<SkinnedMeshRenderer>().material = hairMaterials[mat];
     }
 
     public bool ContainsName(string target,Transform transf)

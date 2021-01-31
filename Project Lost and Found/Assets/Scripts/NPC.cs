@@ -19,7 +19,7 @@ public class NPC : MonoBehaviour
         agentManager = GameObject.Find("NavMeshManager").GetComponent<NavMeshManager>();
         navAgent = GetComponent<NavMeshAgent>();
         navAgent.autoRepath = true;
-        navAgent.SetDestination(NavMeshUtil.GetRandomPoint(navAgent.transform.position, 20, -1));
+        navAgent.SetDestination(NavMeshUtil.GetRandomPoint(agentManager.transform.position,20,1));
     }
 
     // Update is called once per frame

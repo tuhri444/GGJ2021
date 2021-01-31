@@ -28,11 +28,11 @@ public class RoomTrigger : MonoBehaviour
         }
         else if (name.Equals("EastTrigger"))
         {
-            Debug.DrawRay(transform.position, transform.right, Color.blue);
+            Debug.DrawRay(transform.position, transform.forward, Color.blue);
         }
         else if (name.Equals("WestTrigger"))
         {
-            Debug.DrawRay(transform.position, transform.right, Color.white);
+            Debug.DrawRay(transform.position, transform.forward, Color.white);
         }
 
     }
@@ -42,7 +42,7 @@ public class RoomTrigger : MonoBehaviour
         if (id == 0)
         {
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.forward, out hit, 10))
+            if (Physics.Raycast(transform.position, transform.forward, out hit, 1))
             {
                 Debug.Log("Name: " + name);
                 Debug.Log("Hit Something");
@@ -52,7 +52,7 @@ public class RoomTrigger : MonoBehaviour
         else
         {
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.right, out hit, 10))
+            if (Physics.Raycast(transform.position, transform.right, out hit, 1))
             {
                 Debug.Log("Name: " + name);
                 Debug.Log("Hit Something");

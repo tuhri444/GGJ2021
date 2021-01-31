@@ -8,6 +8,9 @@ using UnityEngine.AI;
 public class NavMeshManager : MonoBehaviour
 {
     [SerializeField]
+    private float spawnRad = 20;
+
+    [SerializeField]
     private GameObject NPCPref;
 
     [SerializeField]
@@ -22,8 +25,7 @@ public class NavMeshManager : MonoBehaviour
         for (int i = 0; i < NPCCount; i++)
         {
             GameObject go = Instantiate(NPCPref);
-            Vector3 pos = new Vector3(transform.position.x,0,transform.position.z);
-            go.transform.position = NavMeshUtil.GetRandomPoint(transform.position, 2,-1);
+            go.GetComponent<NavMeshAgent>().Warp(NavMeshUtil.GetRandomPoint(transform.localPosition, spawnRad,1));
             NPCS.Add(go);
         }
     }
@@ -47,5 +49,10 @@ public class NavMeshManager : MonoBehaviour
     {
 
         return new Vector2(0, 0);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position,spawnRad);
     }
 }

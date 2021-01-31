@@ -25,7 +25,9 @@ public class PanicSystem : MonoBehaviour
 
     [SerializeField] [Range(0, 100)] private int vignetteActivation; 
     [SerializeField] [Range(0, 100)] private int colorActivation; 
-    [SerializeField] [Range(0, 100)] private int bloomActivation; 
+    [SerializeField] [Range(0, 100)] private int bloomActivation;
+
+    [SerializeField] [Range(0, 100)] private int heartBeatActivation;
 
     void Start()
     {
@@ -63,6 +65,10 @@ public class PanicSystem : MonoBehaviour
                 HandleBloom(false);
             else
                 HandleBloom(true);
+
+            if (stress >= heartBeatActivation)
+                HandleBeat();
+
         }
     }
 
@@ -86,5 +92,17 @@ public class PanicSystem : MonoBehaviour
             pp_bloom.intensity.value = Mathf.Lerp(pp_bloom.intensity.value, bloom_intensity_max, bloom_activation_speed);
         else if (pp_bloom.intensity.value > 0.01f)
             pp_bloom.intensity.value = Mathf.Lerp(pp_bloom.intensity.value, 0.0f, bloom_activation_speed);
+    }
+
+    private void HandleBeat()
+    {
+        GameObject player = playerStress.gameObject;
+        AudioSource aus;
+        if (player.TryGetComponent<AudioSource>(out aus) && !aus.isPlaying)
+        {
+            aus.loop = true;
+            aus.Play();
+        }
+        aus.pitch = 1.3f+playerStress.GetStress() / 100f;
     }
 }

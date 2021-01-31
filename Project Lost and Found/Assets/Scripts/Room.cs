@@ -9,12 +9,18 @@ public class Room : MonoBehaviour
     [SerializeField]
     private bool isMain = false;
 
-    private List<RoomTrigger> doors;
+    private Dictionary<string,RoomTrigger> doors;
 
-    private bool northAdjacentRoom = false;
-    private bool southAdjacentRoom = false;
-    private bool eastAdjacentRoom = false;
-    private bool westAdjacentRoom = false;
+    private List<string> keysToRemove = new List<string>();
+
+    //[SerializeField]
+    //private bool northAdjacentRoom = false;
+    //[SerializeField]
+    //private bool southAdjacentRoom = false;
+    //[SerializeField]
+    //private bool eastAdjacentRoom = false;
+    //[SerializeField]
+    //private bool westAdjacentRoom = false;
 
     private void Start()
     {
@@ -22,41 +28,36 @@ public class Room : MonoBehaviour
     }
     public void Init()
     {
-        doors = new List<RoomTrigger>();
+        doors = new Dictionary<string, RoomTrigger>();
         procRoomGen = FindObjectOfType<ProceduralRoomGenerator>();
 
-        doors.Add(transform.Find("NorthTrigger").GetComponent<RoomTrigger>());
-        doors.Add(transform.Find("SouthTrigger").GetComponent<RoomTrigger>());
-        doors.Add(transform.Find("EastTrigger").GetComponent<RoomTrigger>());
-        doors.Add(transform.Find("WestTrigger").GetComponent<RoomTrigger>());
-
-        doors.ForEach(x => x.Init());
-        northAdjacentRoom = doors[0].HasAdjacentRoom;
-        southAdjacentRoom = doors[1].HasAdjacentRoom;
-        eastAdjacentRoom = doors[2].HasAdjacentRoom;
-        westAdjacentRoom = doors[3].HasAdjacentRoom;
-        //CheckAdjacency();
-    }
-
-    public bool CheckAdjacency()
-    {
-        int count = 0;
-        for (int i = 0; i < doors.Count; i++)
+        RoomTrigger trigger;
+        if (transform.Find("NorthTrigger") != null)
         {
-            if (doors[i].HasAdjacentRoom)
-            {
-                count++;
-            }
+            doors.Add("NorthTrigger", transform.Find("NorthTrigger").GetComponent<RoomTrigger>());
         }
-
-        Debug.Log("Count" + count);
-        Debug.Log("Door Count" + doors.Count);
-        if (count < doors.Count)
+        if (transform.Find("SouthTrigger") != null)
         {
-            
-            return true;
+            doors.Add("SouthTrigger", transform.Find("SouthTrigger").GetComponent<RoomTrigger>());
         }
-        return false;
+        if (transform.Find("EastTrigger") != null)
+        {
+            doors.Add("EastTrigger", transform.Find("EastTrigger").GetComponent<RoomTrigger>());
+        }
+        if (transform.Find("WestTrigger") != null)
+        {
+            doors.Add("WestTrigger", transform.Find("WestTrigger").GetComponent<RoomTrigger>());
+        }
+       
+        foreach(RoomTrigger rt in doors.Values)
+        {
+            //Debug.Log("Init RoomTriggers");
+            rt.Init();
+        }
+        //northAdjacentRoom = doors[0].HasAdjacentRoom;
+        //southAdjacentRoom = doors[1].HasAdjacentRoom;
+        //eastAdjacentRoom = doors[2].HasAdjacentRoom;
+        //westAdjacentRoom = doors[3].HasAdjacentRoom;
     }
 
     public bool IsMain
@@ -65,28 +66,35 @@ public class Room : MonoBehaviour
         set { isMain = value; }
     }
 
-    public bool NorthAdjacent
+    //public bool NorthAdjacent
+    //{
+    //    get { return northAdjacentRoom; }
+    //    set { northAdjacentRoom = value; }
+    //}
+
+    //public bool SouthAdjacent
+    //{
+    //    get { return southAdjacentRoom; }
+    //    set { southAdjacentRoom = value; }
+    //}
+
+    //public bool EastAdjacent
+    //{
+    //    get { return eastAdjacentRoom; }
+    //    set { eastAdjacentRoom = value; }
+    //}
+
+    //public bool WestAdjacent
+    //{
+    //    get { return westAdjacentRoom; }
+    //    set { westAdjacentRoom = value; }
+    //}
+
+    public Dictionary<string, RoomTrigger> Doors
     {
-        get { return northAdjacentRoom; }
-        set { northAdjacentRoom = value; }
+        get { return doors; }
     }
 
-    public bool SouthAdjacent
-    {
-        get { return southAdjacentRoom; }
-        set { southAdjacentRoom = value; }
-    }
 
-    public bool EastAdjacent
-    {
-        get { return eastAdjacentRoom; }
-        set { eastAdjacentRoom = value; }
-    }
-
-    public bool WestAdjacent
-    {
-        get { return westAdjacentRoom; }
-        set { westAdjacentRoom = value; }
-    }
 
 }
