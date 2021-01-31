@@ -237,16 +237,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hairMaterials:
   - {fileID: 2100000, guid: 13375b21f23fd564bbfd7fe557c1e3e4, type: 2}
-  - {fileID: 2100000, guid: fd032ae6ded285c47a67f87ce455a3a6, type: 2}
+  - {fileID: 2100000, guid: 2a2a8fa186b2ed546bed36d0119101eb, type: 2}
+  - {fileID: 2100000, guid: 81c11ad1b0a18be40a3b0fc2b7a2bf21, type: 2}
+  - {fileID: 2100000, guid: a8a320b2afc159a4c87a1bca9d0aa295, type: 2}
   topMaterials:
   - {fileID: 2100000, guid: 8eb73ca5a9109c7458cb70ffae332887, type: 2}
-  - {fileID: 2100000, guid: d91fb603b3245ae4aa5839726a6f4b2a, type: 2}
+  - {fileID: 2100000, guid: 883c20a10a2b05d4d817a082f6c8354d, type: 2}
+  - {fileID: 2100000, guid: c2e5746620cc55e4789e914122a69045, type: 2}
   bottomMaterials:
   - {fileID: 2100000, guid: e59cd743286ec934d9e802bda381a66c, type: 2}
-  - {fileID: 2100000, guid: a743ec02b7421004187c589d1025bc1a, type: 2}
+  - {fileID: 2100000, guid: 251f04bd590c3f345a6f446b5563223c, type: 2}
+  - {fileID: 2100000, guid: 24df351101ebb384a8694adc382c89a4, type: 2}
   skinMaterials:
   - {fileID: 2100000, guid: a53f57ccd4b90d94bb9a0a6a0794ae89, type: 2}
-  - {fileID: 2100000, guid: 3e476e71bfcaede4c907f28ae5f4dc26, type: 2}
+  - {fileID: 2100000, guid: b32c93ab3d7146949bb5420c2a48b24e, type: 2}
+  - {fileID: 2100000, guid: 522b552acfbad7a46acf9bc14e98032a, type: 2}
+  - {fileID: 2100000, guid: b800ea4a4d6f3d745b2d7cb4fbf61d56, type: 2}
   feetMaterials:
   - {fileID: 2100000, guid: e72e9589d4323ac43a1f8a13baf948c0, type: 2}
   - {fileID: 2100000, guid: 42b28838ceb2f3740a9d58642bd6b49f, type: 2}
