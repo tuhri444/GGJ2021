@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StressData : MonoBehaviour
 {
@@ -8,5 +9,13 @@ public class StressData : MonoBehaviour
     public void AddToStress(float addition) => stressLevel += addition;
     public void RemoveFromStress(float addition) => stressLevel -= addition;
     public float GetStress() => stressLevel;
+
+    private void Update()
+    {
+        if(stressLevel >= 200.0f)
+        {
+            SceneManager.LoadScene("bad");
+        }
+    }
 }
 

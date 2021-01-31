@@ -35,15 +35,18 @@ public class controlArrow : MonoBehaviour
         }
         HandleDirection();
         HandlePosition();
+        HandleAnimation();
+
         if (arrowActive)
         {
             if (timePassed > timerInSeconds*100)
             {
                 arrowActive = false;
                 timePassed = 0.0f;
+                Debug.Log("Arrow should start becoming smoll");
             }
+            Debug.Log("TimePassed:" + timePassed);
             timePassed += Time.deltaTime;
-            HandleAnimation();
         }
     }
 
