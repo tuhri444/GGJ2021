@@ -289,6 +289,7 @@ GameObject:
   - component: {fileID: 3249766171361497047}
   - component: {fileID: 3201926551670245929}
   - component: {fileID: 6444925040605375779}
+  - component: {fileID: 698684807345370133}
   m_Layer: 0
   m_Name: Toddlers_Bed
   m_TagString: Untagged
@@ -359,6 +360,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &698684807345370133
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6939012842840580335}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.9953098, y: 0.53658986, z: 1.64659}
+  m_Center: {x: 0.104661465, y: 0.27790827, z: -0.009040177}
 --- !u!1001 &9013126519525507630
 PrefabInstance:
   m_ObjectHideFlags: 0

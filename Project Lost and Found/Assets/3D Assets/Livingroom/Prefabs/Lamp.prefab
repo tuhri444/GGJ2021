@@ -173,6 +173,7 @@ GameObject:
   - component: {fileID: 5174554022645527448}
   - component: {fileID: 2725559750086211634}
   - component: {fileID: 5428603674946579746}
+  - component: {fileID: 5791511872296167125}
   m_Layer: 0
   m_Name: Lamp_Pole
   m_TagString: Untagged
@@ -243,6 +244,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &5791511872296167125
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5011220041345806169}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.13830781, y: 3.0797317, z: 0.13988313}
+  m_Center: {x: 0.0000008158386, y: 1.6498743, z: 0.000772696}
 --- !u!1 &7512849830944954216
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,6 +302,7 @@ GameObject:
   - component: {fileID: 4539466641588733485}
   - component: {fileID: 6584974030982570773}
   - component: {fileID: 2365898338524987897}
+  - component: {fileID: 3377833601680144894}
   m_Layer: 0
   m_Name: Lamp_Bottom
   m_TagString: Untagged
@@ -358,3 +373,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &3377833601680144894
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8907255239332206406}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.71392083, y: 0.093566224, z: 0.7142836}
+  m_Center: {x: 0.00000040233135, y: 0.06572431, z: 0.0039453506}

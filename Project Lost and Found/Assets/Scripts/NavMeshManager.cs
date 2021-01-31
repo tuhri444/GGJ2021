@@ -21,6 +21,7 @@ public class NavMeshManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        bool CreatedMom = false;
         //UnityEditor.AI.NavMeshBuilder.BuildNavMesh();
         for (int i = 0; i < NPCCount; i++)
         {
@@ -28,6 +29,8 @@ public class NavMeshManager : MonoBehaviour
             go.GetComponent<NavMeshAgent>().Warp(NavMeshUtil.GetRandomPoint(transform.localPosition, spawnRad,1));
             NPCS.Add(go);
         }
+        GameObject randomNPC = NPCS[Random.Range(0, NPCS.Count)];
+        randomNPC.GetComponentInChildren<MomData>().IsMom = true;
     }
 
     public bool ValidatePosition(int index,Vector3 position)

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8194761410941953042}
   - component: {fileID: 7728373335558151546}
   - component: {fileID: 7576628610730055781}
+  - component: {fileID: 342051843731520129}
   m_Layer: 0
   m_Name: Toybox
   m_TagString: Untagged
@@ -81,6 +82,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &342051843731520129
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5021070075109323119}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5848147, y: 0.8345553, z: 0.6424426}
+  m_Center: {x: -0.00046938658, y: 0.41207466, z: 0.013102293}
 --- !u!1 &6226626725970012635
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,6 +187,7 @@ GameObject:
   - component: {fileID: 7587432269129171683}
   - component: {fileID: 6274162001129420918}
   - component: {fileID: 3027512820992497616}
+  - component: {fileID: 4924981191769015915}
   m_Layer: 0
   m_Name: Middle
   m_TagString: Untagged
@@ -243,6 +258,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &4924981191769015915
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6666631891112824213}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5493517, y: 0.5288376, z: 0.60260683}
+  m_Center: {x: 0.000104516745, y: 0.47554287, z: 0.012926549}
 --- !u!1 &7875549907314490574
 GameObject:
   m_ObjectHideFlags: 0

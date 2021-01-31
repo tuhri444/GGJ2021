@@ -16,6 +16,9 @@ public class NPCClothing : MonoBehaviour
     [SerializeField]
     private List<Material> skinMaterials;
 
+    [SerializeField]
+    private List<Material> feetMaterials;
+
 
     private List<Transform> fBottoms;
     private List<Transform> mBottoms;
@@ -34,19 +37,19 @@ public class NPCClothing : MonoBehaviour
         hairs = new List<Transform>();
         genders = new List<Transform>();
 
-        for (int i = 0;i<transform.childCount;i++)
+        for (int i = 0; i < transform.childCount; i++)
         {
-            if (ContainsName("Bot",transform.GetChild(i)))
+            if (ContainsName("Bot", transform.GetChild(i)))
             {
-                if (ContainsName("Male",transform.GetChild(i)))
+                if (ContainsName("Male", transform.GetChild(i)))
                 {
                     mBottoms.Add(transform.GetChild(i));
                     transform.GetChild(i).gameObject.SetActive(false);
                     continue;
-                } 
+                }
                 else if (ContainsName("Female", transform.GetChild(i)))
                 {
-                   fBottoms.Add(transform.GetChild(i));
+                    fBottoms.Add(transform.GetChild(i));
                     transform.GetChild(i).gameObject.SetActive(false);
                     continue;
                 }
@@ -80,6 +83,13 @@ public class NPCClothing : MonoBehaviour
                 continue;
             }
             transform.GetChild(i).gameObject.SetActive(false);
+
+            if (ContainsName("Shoes", transform.GetChild(i)))
+            {
+                int num = Random.Range(0, feetMaterials.Count);
+                transform.GetChild(i).gameObject.SetActive(true);
+                transform.GetChild(i).GetComponent<SkinnedMeshRenderer>().material = feetMaterials[num];
+            }
         }
 
         int gender = Random.Range(0, genders.Count);
@@ -90,6 +100,8 @@ public class NPCClothing : MonoBehaviour
         int hair = Random.Range(0, hairs.Count);
         int mat;
 
+
+
         mat = Random.Range(0, skinMaterials.Count);
         genders[gender].gameObject.SetActive(true);
         genders[gender].GetComponent<SkinnedMeshRenderer>().material = skinMaterials[mat];
@@ -98,6 +110,7 @@ public class NPCClothing : MonoBehaviour
             mat = Random.Range(0, bottomMaterials.Count);
             mBottoms[mBot].gameObject.SetActive(true);
             mBottoms[mBot].GetComponent<SkinnedMeshRenderer>().material = bottomMaterials[mat];
+
 
             mat = Random.Range(0, topMaterials.Count);
             mTops[mTop].gameObject.SetActive(true);
@@ -115,12 +128,13 @@ public class NPCClothing : MonoBehaviour
         }
 
 
+
         mat = Random.Range(0, hairMaterials.Count);
         hairs[hair].gameObject.SetActive(true);
         hairs[hair].GetComponent<SkinnedMeshRenderer>().material = hairMaterials[mat];
     }
 
-    public bool ContainsName(string target,Transform transf)
+    public bool ContainsName(string target, Transform transf)
     {
         return transf.name.Contains(target);
     }

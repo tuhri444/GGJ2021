@@ -34,6 +34,11 @@ public class GrabAnimationController : MonoBehaviour
         }
     }
 
+    public void Pullback()
+    {
+        grabbing_animation.SetTrigger("Pullback");
+    }
+
     private void HandleMouseInput()
     {
         if(Input.GetMouseButtonDown(0))

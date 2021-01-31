@@ -33,6 +33,13 @@ public class DialogueSystem : MonoBehaviour
 
     private bool checkForMouseInput = false;
 
+    public delegate void StopTalking();
+    public static StopTalking OnStopTalking;
+    
+    private GrabHand hand;
+
+
+
     void Start()
     {
         dialogueTrans = dialogueBox.GetComponent<RectTransform>();
@@ -41,6 +48,7 @@ public class DialogueSystem : MonoBehaviour
         GrabHand.OnGrab += OnGrab;
         dialogueQueue = new Queue<Dialogue>();
         animController = FindObjectOfType<GrabAnimationController>();
+        hand = FindObjectOfType<GrabHand>();
     }
     void Update()
     {
@@ -53,11 +61,16 @@ public class DialogueSystem : MonoBehaviour
                 NextSentence();
             }
         }
-        if (dialogueQueue != null&& dialogueQueue.Count == 0 && checkForMouseInput)
+        if (dialogueQueue != null && dialogueQueue.Count == 0 && checkForMouseInput)
         {
+            NextSentence();
+            NextSentence();
             NextSentence();
             checkForMouseInput = false;
             animController.StopGrabbing();
+            animController.Pullback();
+            OnStopTalking?.Invoke();
+            GrabHand.OnLetGo?.Invoke(new Collider());
         }
         HandleBoxAnimation();
         DisplayText();
@@ -117,8 +130,8 @@ public class DialogueSystem : MonoBehaviour
         {
             //Ease into existance
             float size = Easing.BackEaseOut(currentTime, 0.0f, 1.0f, animationSpeed);
-            Debug.Log("Appear: " + size);
-            Debug.Log("currentTime: " + currentTime);
+            //Debug.Log("Appear: " + size);
+            //Debug.Log("currentTime: " + currentTime);
             dialogueTrans.localScale = new Vector3(size,size, 1.0f);
             currentTime += Time.deltaTime;
             ClearDialogueBox();
@@ -127,8 +140,8 @@ public class DialogueSystem : MonoBehaviour
         {
             //Ease out of existance
             float size = Easing.BackEaseOut(currentTime, 0.0f, 1.0f, animationSpeed);
-            Debug.Log("dissapear: " + size);
-            Debug.Log("currentTime: " + currentTime);
+            //Debug.Log("dissapear: " + size);
+            //Debug.Log("currentTime: " + currentTime);
             dialogueTrans.localScale = new Vector3(size, size, 1.0f);
             currentTime -= Time.deltaTime;
         }
