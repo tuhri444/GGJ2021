@@ -13,6 +13,10 @@ public class FirstPersonMovement : MonoBehaviour
     Vector2 velocity;
     private bool canMove = true;
 
+    [SerializeField]
+    private GameObject Footsteps;
+    private bool isPlaying = false;
+
 
 
     private void Start()
@@ -37,6 +41,20 @@ public class FirstPersonMovement : MonoBehaviour
             velocity.y = Input.GetAxis("Vertical") * speed * Time.deltaTime;
             velocity.x = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
             transform.Translate(velocity.x, 0, velocity.y);
+            Debug.Log(velocity.magnitude);
+            Debug.Log(isPlaying);
+            if(velocity.magnitude > .01f && !isPlaying)
+            {
+                Debug.Log("Move");
+                Footsteps.GetComponent<AudioSource>().loop = true;
+                Footsteps.GetComponent<AudioSource>().Play();
+                isPlaying = true;
+            }
+            else if (velocity.magnitude == 0)
+            {
+                isPlaying = false;
+                Footsteps.GetComponent<AudioSource>().Stop();
+            }
         }
     }
 
