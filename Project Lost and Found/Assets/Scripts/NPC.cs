@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEditor.AI;
+//using UnityEditor.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class NPC : MonoBehaviour
@@ -27,13 +27,15 @@ public class NPC : MonoBehaviour
     {
         if (navAgent.enabled)
         {
+            transform.GetChild(0).GetComponent<Animator>().SetBool("Idle", false);
             if (!navAgent.hasPath && !navAgent.isStopped)
             {
+
                 if (agentManager.ValidatePosition(id, transform.position))
                 {
                     if (time >= waitTime)
                     {
-                        navAgent.SetDestination(NavMeshUtil.GetRandomPoint(transform.position, 20, -1));//just a magic number for now
+                        navAgent.SetDestination(NavMeshUtil.GetRandomPoint(transform.position, 5, -1));//just a magic number for now
                         time = 0;
                         waitTime = Random.Range(1, 5);
                     }
@@ -45,11 +47,15 @@ public class NPC : MonoBehaviour
                 else
                 {
 
-                    navAgent.SetDestination(NavMeshUtil.GetRandomPoint(transform.position, 20, -1));//just a magic number for now
+                    navAgent.SetDestination(NavMeshUtil.GetRandomPoint(transform.position, 5, -1));//just a magic number for now
                     time = 0;
                     waitTime = Random.Range(1, 5);
 
                 }
+            }
+            else
+            {
+                transform.GetChild(0).GetComponent<Animator>().SetBool("Idle",true);
             }
         }
     }

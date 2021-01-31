@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using UnityEngine.AI;
-using UnityEditor.AI;
+//using UnityEditor.AI;
 
 public class NavMeshManager : MonoBehaviour
 {
@@ -18,7 +18,7 @@ public class NavMeshManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        UnityEditor.AI.NavMeshBuilder.BuildNavMesh();
+        //UnityEditor.AI.NavMeshBuilder.BuildNavMesh();
         for (int i = 0; i < NPCCount; i++)
         {
             GameObject go = Instantiate(NPCPref);
