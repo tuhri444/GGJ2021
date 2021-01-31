@@ -39,7 +39,7 @@ public class GetGrabbed : MonoBehaviour
         d = new Dialogue() { name = "", dialogue = "" };
         IsNotMomDialogues.Add(d);
 
-        d = new Dialogue() { name = "Mom", dialogue = "Thank god i found you, i was worried sick" };
+        d = new Dialogue() { name = "Mom", dialogue = "Thank god I found you, I was worried sick" };
         IsMomDialogues.Add(d);
         d = new Dialogue() { name = "Mom", dialogue = "Let's go get some meatballs!" };
         IsMomDialogues.Add(d);
