@@ -33,6 +33,7 @@ public class controlArrow : MonoBehaviour
                 }
             }
         }
+        HandleDirection();
         HandlePosition();
         if (arrowActive)
         {
@@ -43,7 +44,6 @@ public class controlArrow : MonoBehaviour
             }
             timePassed += Time.deltaTime;
             HandleAnimation();
-            HandleDirection();
         }
     }
 
@@ -53,7 +53,7 @@ public class controlArrow : MonoBehaviour
     }
     private void HandleDirection()
     {
-        transform.forward = (mom.transform.position - transform.position).normalized;
+        transform.LookAt(mom.transform);
     }
     private void HandleAnimation()
     {

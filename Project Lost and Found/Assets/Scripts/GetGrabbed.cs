@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class GetGrabbed : MonoBehaviour
@@ -22,6 +23,7 @@ public class GetGrabbed : MonoBehaviour
     private List<Dialogue> IsNotMomDialogues;
 
     private controlArrow arrow;
+
 
     void Start()
     {
@@ -78,6 +80,7 @@ public class GetGrabbed : MonoBehaviour
                     DialogueSystem.AddDialogue(IsMomDialogues[1]);
                     ds.triggerAnimation = true;
                     DialogueSystem.NextSentence();
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
                 }
                 else
                 {
