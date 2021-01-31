@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 53ae731c7d1f1ba48bcc5958d6387aea, type: 2}
 --- !u!4 &9063656 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1958513711632743452, guid: e34e763ede6fade4ba17fad09c03fe44, type: 3}
@@ -4019,7 +4019,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97fca36bd81de7c4cafce7bbf02ca611, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  walkSpeed: 5
+  runSpeed: 10
 --- !u!124 &124991111155369248
 Behaviour:
   m_ObjectHideFlags: 0
